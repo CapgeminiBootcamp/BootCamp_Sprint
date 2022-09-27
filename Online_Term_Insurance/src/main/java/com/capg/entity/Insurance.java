@@ -1,9 +1,12 @@
 package com.capg.entity;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 import lombok.Data;
 
@@ -18,4 +21,7 @@ public class Insurance {
 	private long sumAssurance;
 	private String preminiumType;
 	private int tenture;
+	
+	@ManyToMany
+	private List<Customer> customers;
 }

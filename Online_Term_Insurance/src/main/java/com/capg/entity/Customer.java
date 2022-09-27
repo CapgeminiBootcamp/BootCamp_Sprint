@@ -1,9 +1,14 @@
 package com.capg.entity;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+
+import org.hibernate.annotations.ManyToAny;
 
 import lombok.Data;
 
@@ -17,8 +22,13 @@ public class Customer {
 	private String customeraddress;
 	private int customerAge;
 	private long customerSalary;
-	private long customerContact;
+	private String customerContact;
 	private String customerGender;
 	private String customerFamilyMembers;
+	private String email ;
+	private String password;
+	
+	@ManyToMany
+	private List<Insurance> insurances;
 
 }

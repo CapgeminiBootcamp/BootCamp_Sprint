@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 //import com.capg.entity.UserDetail;
 
 import com.capg.entity.UserLogin;
-import com.capg.exception.HandlingException;
 import com.capg.repository.UserLoginRepository;
 
 
@@ -33,7 +32,7 @@ public class UserLoginController {
 	LocalDateTime instant;
 	
 	@PostMapping("/userLogin")
-	public Map<String,String> loginUser(@RequestBody UserLogin user) throws HandlingException
+	public Map<String,String> loginUser(@RequestBody UserLogin user)
 	{
 		 
 		 UserLogin detail = userRepo.findByEmailAndPassword(user.getEmail(), user.getPassword());
@@ -48,10 +47,8 @@ public class UserLoginController {
 				     map.put("Status Code","202");
 					 return map ;
 		}
-		 else 
-		 { 
-			throw new HandlingException("Login credentials are incorrect");
-		 }
+		return null;
+		 
 	
 		
 

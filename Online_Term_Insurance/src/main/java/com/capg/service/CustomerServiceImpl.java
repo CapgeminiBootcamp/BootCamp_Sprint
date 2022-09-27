@@ -36,4 +36,15 @@ public class CustomerServiceImpl implements CustomerService {
 		return customerRepository.findById(customerId);
 	}
 
+	@Override
+	public int countBycustomerContactOrEmail(String contact, String email) {	
+		return customerRepository.countBycustomerContactOrEmail(contact, email);
+	}
+
+	@Override
+	public Customer findByEmailAndPassword(String email, String password) {
+		
+		return customerRepository.findByEmailAndPassword(email, password);
+	}
+
 }

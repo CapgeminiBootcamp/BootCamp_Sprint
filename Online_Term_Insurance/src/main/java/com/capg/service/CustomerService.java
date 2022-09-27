@@ -12,4 +12,6 @@ public interface CustomerService {
 	public Customer editCustomer(Customer customer);
 	public List<Customer> getCustomers();
 	public Optional<Customer> findCustomerByID(int customerId);
+	public int countBycustomerContactOrEmail(String contact,String email);
+	public Customer findByEmailAndPassword(String email,String password);
 }

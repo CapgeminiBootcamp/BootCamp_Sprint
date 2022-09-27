@@ -11,17 +11,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data @Table(name = "UserLoginInfo")
-@AllArgsConstructor 
-@Entity
+@Data
 public class UserLogin {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id ; 
-	
 	private String email ;
 	private String password;
-	
-	private String time ; 
 }
