@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 import org.hibernate.annotations.ManyToAny;
@@ -16,7 +18,7 @@ import lombok.Data;
 public class Customer {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int customerId;
 	private String cutomerName;
 	private String customeraddress;
@@ -29,6 +31,7 @@ public class Customer {
 	private String password;
 	
 	@ManyToMany
+	@JoinTable(name = "insurance_customer", joinColumns = @JoinColumn(name = "customerId", referencedColumnName = "customerId"), inverseJoinColumns = @JoinColumn(name = "insuranceId", referencedColumnName = "insuranceId"))
 	private List<Insurance> insurances;
 
 }
