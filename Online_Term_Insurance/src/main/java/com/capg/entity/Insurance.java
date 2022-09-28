@@ -21,7 +21,7 @@ public class Insurance {
 	private int insuranceId;
 	private String insuranceName;
 	private long sumAssurance;
-	private String preminiumType;
+	private String preminiumAmount;
 	private int tenture;
 	
 	@ManyToMany(mappedBy = "insurances")

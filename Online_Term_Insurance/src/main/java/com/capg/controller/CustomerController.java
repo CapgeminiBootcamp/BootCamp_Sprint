@@ -29,71 +29,21 @@ import com.capg.service.InsuranceService;
 public class CustomerController {	
 	@Autowired
 	CustomerService customerService;
-	
-	@Autowired
-	InsuranceService insuranceService;
-	
+	 
 
 	@GetMapping("/customers")
 	public ResponseEntity<List<Customer>> getAllCustomers(){
-		List<Customer> list = customerService.getCustomers();
-		if (list.isEmpty())
-			throw new CustomersEmptyException("No Customer Data is present right now");
-    	return new ResponseEntity<List<Customer>>(list, HttpStatus.OK);
+    	return new ResponseEntity<List<Customer>>(customerService.getCustomers(), HttpStatus.OK);
 		
 	}
 	@PostMapping("/add-Customer")
-	public ResponseEntity<Customer> saveCustomer(@RequestBody Customer customer) {
-		if(customer.getCustomerId()<0)
-			throw new EnterValidDetailsException("Please Enter valid customerId");
-		String email = customer.getEmail().trim();
-		 String customerContact = customer.getCustomerContact();
-	     String password =  customer.getPassword();
-	     
-	     String emailPattern="^[A-Za-z0-9._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}$";
-	     String mobilePattern="(^$|[6-9][0-9]{9})";
-	    // String passwordPattern = "^(?=.[0-9])(?=.[a-z])(?=.[A-Z])(?=.[@#$%^&-])(?=\\S+$).{8, 20}$"; 
-	     
-	    
-	     //check password 
-	     
-	     boolean a;//validations lagane h 
-
-	     if(email.equals("") || customerContact.equals("")) {
-	         throw new EmptyFieldException("Fields can not be empty please insert ur email and password");	         
-	     }else if(!customer.getEmail().matches(emailPattern)) {	        
-	         throw new EmptyFieldException("Invalid email");
-	     }
-	     else if(!customer.getCustomerContact().matches(mobilePattern)) {	       
-	         throw new EmptyFieldException("Invalid contact number");
-	     }
-	     else if(customer.getPassword() == "" || customer.getPassword().length() <8 ) {
-	         throw new EmptyFieldException("Length of Password must be atleast 8 ");
-	     }
-	     else {
-	         int info = customerService.countBycustomerContactOrEmail(customer.getCustomerContact(), customer.getEmail());
-
-	         if(info > 0) {	             
-	             throw new EmptyFieldException("Please Login to continue");
-         }
-//	             else {
-//	             Customer inf = customerService.addCustomer(customer);
-//	             str = "Entered"; 
-//	             Map<String,String> map=new HashMap<String, String>();
-//		     map.put("Status Code", "202");
-//			     map.put("message", "Details Entered");
-//			   	            
-//	         }
-	     }
+	public ResponseEntity<Customer> saveCustomer(@RequestBody Customer customer) {		
 		return new ResponseEntity<Customer>(customerService.addCustomer(customer), HttpStatus.CREATED);
 		
 	}
 	@PostMapping("/login")
 	public ResponseEntity<Customer> checkLogin(@RequestBody UserLogin userLogin) {
-		Customer result=customerService.findByEmailAndPassword(userLogin.getEmail(),userLogin.getPassword());
-		if(result==null)
-		   throw new EmailOrPasswordException("error in ur passsword or email");
-		return new ResponseEntity<Customer>(customerService.addCustomer(result), HttpStatus.CREATED);
+		return new ResponseEntity<Customer>(customerService.findByEmailAndPassword(userLogin.getEmail(),userLogin.getPassword()), HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/customer")
@@ -103,17 +53,8 @@ public class CustomerController {
 	
 	
 	@PutMapping("/{customerId}/puchaseInsurance/{insuranceId}")
-    private ResponseEntity<Customer> assignInsuranceToCustomer(@PathVariable int customerId, @PathVariable int insuranceId) {
-    	
-    	if(customerId<0 || insuranceId<0) {
-    		
-    		throw new EnterValidDetailsException("Either customerId Or insuranceId Is Invalid Please Enter Correct ");
-    	}
-    	else {
-    		Customer customer = customerService.findCustomerByID(customerId).get();
-        Insurance insurance = insuranceService.findInsuranceByID(insuranceId).get();
-        customer.getInsurances().add(insurance);
-        return new ResponseEntity<Customer>(customerService.addCustomer(customer), HttpStatus.ACCEPTED);
+    private ResponseEntity<Customer> assignInsuranceToCustomer(@PathVariable int customerId, @PathVariable int insuranceId) { 	
+        return new ResponseEntity<Customer>(customerService.assignInsuranceToCustomer(customerId, insuranceId), HttpStatus.ACCEPTED);
     }
- }  
+   
 }

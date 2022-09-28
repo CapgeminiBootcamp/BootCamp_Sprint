@@ -15,7 +15,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(CustomerAlreadyPresentException.class)
 	public ResponseEntity<ErrorDetails> handleCustomerAlreadyPresentException(CustomerAlreadyPresentException ex,WebRequest request)
 	{
-		ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), ex.getMessage());
+		ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
 
 		return new ResponseEntity<ErrorDetails>(errorDetails, HttpStatus.NOT_FOUND);
 	}
@@ -25,7 +25,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(CustomersEmptyException.class)
 	public ResponseEntity<ErrorDetails> handleCustomersEmptyException(CustomersEmptyException ex,WebRequest request)
 	{
-		ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), ex.getMessage());
+		ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
 
 		return new ResponseEntity<ErrorDetails>(errorDetails, HttpStatus.NOT_FOUND);
 	}
@@ -34,7 +34,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(EmailOrPasswordException.class)
 	public ResponseEntity<ErrorDetails> handleEmailOrPasswordException(EmailOrPasswordException ex,WebRequest request)
 	{
-		ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), ex.getMessage());
+		ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
 
 		return new ResponseEntity<ErrorDetails>(errorDetails, HttpStatus.NOT_FOUND);
 	}
@@ -44,20 +44,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(EmptyFieldException.class)
 	public ResponseEntity<ErrorDetails> handleEmptyFieldException(EmptyFieldException ex,WebRequest request)
 	{
-		ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), ex.getMessage());
+		ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
 
 		return new ResponseEntity<ErrorDetails>(errorDetails, HttpStatus.NOT_FOUND);
 	}
 	
 	
 	
-	@ExceptionHandler(InsuranceEmptyException.class)
-	public ResponseEntity<ErrorDetails> handleInsuranceEmptyException(InsuranceEmptyException ex,WebRequest request)
-	{
-		ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), ex.getMessage());
-
-		return new ResponseEntity<ErrorDetails>(errorDetails, HttpStatus.NOT_FOUND);
-	}
+	
 	
 	
 	
@@ -68,10 +62,29 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	
 	
 	//Insurance Exception
+	
+	
 	@ExceptionHandler(EnterValidDetailsException.class)
 	public ResponseEntity<ErrorDetails> handleEnterValidDetailsException(EnterValidDetailsException ex,WebRequest request)
 	{
-		ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), ex.getMessage());
+		ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
+
+		return new ResponseEntity<ErrorDetails>(errorDetails, HttpStatus.NOT_FOUND);
+	}
+	
+	
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public ResponseEntity<ErrorDetails> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex,WebRequest request)
+	{
+		ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
+
+		return new ResponseEntity<ErrorDetails>(errorDetails, HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler(InsuranceEmptyException.class)
+	public ResponseEntity<ErrorDetails> handleInsuranceEmptyException(InsuranceEmptyException ex,WebRequest request)
+	{
+		ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
 
 		return new ResponseEntity<ErrorDetails>(errorDetails, HttpStatus.NOT_FOUND);
 	}

@@ -11,4 +11,5 @@ public interface InsuranceService {
 	public Insurance editInsurance(Insurance insurance);
 	public List<Insurance> getInsurances();
 	public Optional<Insurance> findInsuranceByID(int customerId);
+	public Insurance deleteInsurance(int insuranceId);
 }
