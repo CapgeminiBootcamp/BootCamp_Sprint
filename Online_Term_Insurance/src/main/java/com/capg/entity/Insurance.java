@@ -17,7 +17,7 @@ public class Insurance {
 
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int insuranceId;
 	private String insuranceName;
 	private long sumAssurance;
