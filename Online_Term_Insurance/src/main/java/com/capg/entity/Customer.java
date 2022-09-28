@@ -30,6 +30,24 @@ public class Customer {
 	private String email ;
 	private String password;
 	
+	public Customer(int i, String string, String string2, int j, int k, String string3, String string4, String string5,
+			String string6, String string7) {
+		customerId= i;
+		cutomerName = string;
+		  customeraddress = string2;
+		  customerAge = j;
+		  customerSalary = k;
+		  customerContact = string3;
+		  customerGender = string4;
+		  customerFamilyMembers = string5;
+		  email = string6;
+		  password = string7;
+		
+	}
+	public Customer() {
+		
+	}
+	
 	@ManyToMany
 	@JoinTable(name = "insurance_customer", joinColumns = @JoinColumn(name = "customerId", referencedColumnName = "customerId"), inverseJoinColumns = @JoinColumn(name = "insuranceId", referencedColumnName = "insuranceId"))
 	private List<Insurance> insurances;
