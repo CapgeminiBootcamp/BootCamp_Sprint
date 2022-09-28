@@ -16,6 +16,19 @@ import lombok.Data;
 public class Insurance {
 
 	
+	public Insurance(int insuranceId, String insuranceName, int sumAssurance, String preminiumAmount, int tenure) {
+		this.insuranceId = insuranceId;
+		this.insuranceName = insuranceName;
+		this.sumAssurance = sumAssurance;
+		this.preminiumAmount = preminiumAmount;
+		this.tenture = tenure;
+		
+		
+	}
+	public Insurance() {
+		
+	}
+
 	@Id
 //	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int insuranceId;

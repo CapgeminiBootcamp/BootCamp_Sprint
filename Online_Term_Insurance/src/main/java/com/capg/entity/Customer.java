@@ -31,9 +31,9 @@ public class Customer {
 	private String password;
 	
 	public Customer(int i, String string, String string2, int j, int k, String string3, String string4, String string5,
-			String string6, String string7) {
-		customerId= i;
-		cutomerName = string;
+		  String string6, String string7) {
+		  customerId= i;
+		  cutomerName = string;
 		  customeraddress = string2;
 		  customerAge = j;
 		  customerSalary = k;
