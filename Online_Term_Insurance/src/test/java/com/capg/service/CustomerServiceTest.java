@@ -1,22 +1,19 @@
 package com.capg.service;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.when;
+
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
+
 import com.capg.entity.Customer;
 import com.capg.repository.CustomerRepository;
-import com.capg.service.CustomerServiceImpl;
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import org.junit.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

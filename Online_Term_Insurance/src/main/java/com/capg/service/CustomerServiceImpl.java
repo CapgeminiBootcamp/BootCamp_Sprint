@@ -8,13 +8,14 @@ import org.springframework.stereotype.Repository;
 
 import com.capg.entity.Customer;
 import com.capg.entity.Insurance;
+import com.capg.entity.TermInsuranceCalculator;
 import com.capg.exception.CustomersEmptyException;
 import com.capg.exception.EmailOrPasswordException;
 import com.capg.exception.EmptyFieldException;
 import com.capg.exception.EnterValidDetailsException;
 import com.capg.exception.InsuranceEmptyException;
 import com.capg.repository.CustomerRepository;
-import com.capg.repository.InsuranceRepository;
+
 @Repository
 public class CustomerServiceImpl implements CustomerService {
 	@Autowired
@@ -104,9 +105,38 @@ public class CustomerServiceImpl implements CustomerService {
 	   else {
 	    	customer = findCustomerByID(customerId).get();
 	        Insurance insurance = insuranceService.findInsuranceByID(insuranceId).get();
-	        customer.getInsurances().add(insurance);			
+	        customer.getInsurances().add(insurance);
+	        customerRepository.save(customer);
 	     }
 	   return customer;
 
-}
+	}
+	
+	@Override
+	public String calculateInsurance(TermInsuranceCalculator termInsuranceCalculator) {
+		
+		Long EstimateValue = (long) 0;
+		
+		if(termInsuranceCalculator.getSalary() > 100000 && termInsuranceCalculator.getSalary() < 500000) {
+			
+			EstimateValue = (termInsuranceCalculator.getSalary() * 15);
+			return "Your final Estimated Value is" + EstimateValue;
+			
+		}else if(termInsuranceCalculator.getSalary() > 500000 && termInsuranceCalculator.getSalary() < 1000000) {
+			
+			EstimateValue = (termInsuranceCalculator.getSalary() * 18);
+			return "Your final Estimated Value is" + EstimateValue;
+			
+		}else if(termInsuranceCalculator.getSalary() > 1000000) {
+			
+			EstimateValue = (termInsuranceCalculator.getSalary() * 20);
+			return "Your final Estimated Value is" + EstimateValue;
+		}else
+			
+			return "Sorry! you are not eligible for any Insurance";
+	}
+	
+	
+	
+	
 }

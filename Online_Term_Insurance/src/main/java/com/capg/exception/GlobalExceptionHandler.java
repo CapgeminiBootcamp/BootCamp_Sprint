@@ -12,6 +12,9 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @RestController
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {	
 	//Customer exceptions	
+	
+	
+	
 	@ExceptionHandler(CustomerAlreadyPresentException.class)
 	public ResponseEntity<ErrorDetails> handleCustomerAlreadyPresentException(CustomerAlreadyPresentException ex,WebRequest request)
 	{

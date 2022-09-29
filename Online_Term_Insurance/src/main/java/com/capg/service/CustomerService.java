@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.capg.entity.Customer;
+import com.capg.entity.TermInsuranceCalculator;
 
 public interface CustomerService {
 
@@ -17,4 +18,6 @@ public interface CustomerService {
 	public int countBycustomerContactOrEmail(String contact,String email);
 	public Customer findByEmailAndPassword(String email,String password);
 	public Customer assignInsuranceToCustomer(int customerId, int insuranceId);
+	
+	String calculateInsurance(TermInsuranceCalculator termInsuranceCalculator);
 }

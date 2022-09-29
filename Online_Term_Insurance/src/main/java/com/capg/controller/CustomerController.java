@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.capg.entity.Customer;
 import com.capg.entity.Insurance;
+import com.capg.entity.TermInsuranceCalculator;
 import com.capg.entity.UserLogin;
 import com.capg.exception.CustomerAlreadyPresentException;
 import com.capg.exception.CustomersEmptyException;
@@ -57,4 +58,9 @@ public class CustomerController {
         return new ResponseEntity<Customer>(customerService.assignInsuranceToCustomer(customerId, insuranceId), HttpStatus.ACCEPTED);
     }
    
+	@GetMapping("/calculateTerm")
+	public String calculateTerm(@RequestBody TermInsuranceCalculator TermInsuranceCalculator) {		
+		return customerService.calculateInsurance(TermInsuranceCalculator);
+		
+	}
 }
