@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.capg.entity.CalculateInsurance;
 import com.capg.entity.Customer;
+import com.capg.entity.EditCustomer;
 import com.capg.entity.Insurance;
 import com.capg.entity.TermInsuranceCalculator;
 import com.capg.entity.UserLogin;
@@ -48,8 +50,8 @@ public class CustomerController {
 	}
 	
 	@PutMapping("/customer")
-	public ResponseEntity<Customer> editCustomer(@RequestBody Customer customer) {
-		return new ResponseEntity<Customer>(customerService.addCustomer(customer), HttpStatus.CREATED);
+	public ResponseEntity<Customer> editCustomer(@RequestBody EditCustomer customer) {
+		return new ResponseEntity<Customer>(customerService.editCustomer(customer), HttpStatus.CREATED);
 	}
 	
 	
@@ -57,10 +59,5 @@ public class CustomerController {
     private ResponseEntity<Customer> assignInsuranceToCustomer(@PathVariable int customerId, @PathVariable int insuranceId) { 	
         return new ResponseEntity<Customer>(customerService.assignInsuranceToCustomer(customerId, insuranceId), HttpStatus.ACCEPTED);
     }
-   
-	@GetMapping("/calculateTerm")
-	public String calculateTerm(@RequestBody TermInsuranceCalculator TermInsuranceCalculator) {		
-		return customerService.calculateInsurance(TermInsuranceCalculator);
-		
-	}
+  
 }

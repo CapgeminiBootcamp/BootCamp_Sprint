@@ -12,13 +12,14 @@ import javax.persistence.ManyToMany;
 
 import org.hibernate.annotations.ManyToAny;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
-@Entity @Data
+@Entity @Data @AllArgsConstructor
 public class Customer {
 	
 	@Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int customerId;
 	private String cutomerName;
 	private String customeraddress;
@@ -48,6 +49,12 @@ public class Customer {
 		
 	}
 	
+	
+
+	
+
+
+
 	@ManyToMany
 	@JoinTable(name = "insurance_customer", joinColumns = @JoinColumn(name = "customerId", referencedColumnName = "customerId"), inverseJoinColumns = @JoinColumn(name = "insuranceId", referencedColumnName = "insuranceId"))
 	private List<Insurance> insurances;
