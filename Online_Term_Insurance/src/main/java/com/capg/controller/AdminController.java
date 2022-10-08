@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.capg.entity.AdminLogin;
 import com.capg.entity.Customer;
 import com.capg.entity.Insurance;
+import com.capg.entity.UserLogin;
+import com.capg.exception.CustomersEmptyException;
 import com.capg.service.CustomerService;
 import com.capg.service.InsuranceService;
 @CrossOrigin(origins="http://localhost:3000")
@@ -28,6 +31,17 @@ public class AdminController {
 	
 	@Autowired
 	InsuranceService insuranceService;
+	
+	
+	
+	@PostMapping("/login")
+	public String checkLogin(@RequestBody AdminLogin adminLogin) {
+		if(!(adminLogin.getEmail().equals("admin") && adminLogin.getPassword().equals("admin")))
+			 throw new CustomersEmptyException("Ur email or password are incorrect chcek once");		
+		return "Login success";
+			
+		
+	}
 	
 	@GetMapping("/customers")
 	public ResponseEntity<List<Customer>> adminGetAllCustomers(){
