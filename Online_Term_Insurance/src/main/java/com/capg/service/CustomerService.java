@@ -13,7 +13,7 @@ public interface CustomerService {
 
 	
 	public Customer addCustomer(Customer customer);
-	public Customer editCustomer(EditCustomer customer);
+	public Customer editCustomer(Customer customer);
 	public List<Customer> getCustomers();
 	public Customer findCustomerByID(int customerId);
 	public int countBycustomerContactOrEmail(String contact,String email);

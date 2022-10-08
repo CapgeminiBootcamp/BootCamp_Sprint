@@ -1,13 +1,8 @@
 package com.capg.service;
-
-import static org.hamcrest.CoreMatchers.nullValue;
-
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 
 import com.capg.entity.Customer;
@@ -66,14 +61,21 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public Customer editCustomer(EditCustomer editCustomer) {	
-//		EditCustomer result=new EditCustomer(customer.getCutomerName(),customer.getCustomeraddress(),customer.getCustomerAge(),customer.getCustomerSalary(),
-//				customer.getCustomerContact(),customer.getCustomerGender(),customer.getCustomerFamilyMembers());
-//		Optional<Customer> customer=customerRepository.findById(editCustomer.getCustomerId());		
-//		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//		Object email=auth.getCredentials();)
-
-		return null;
+	public Customer editCustomer(Customer customer) {	
+		Optional<Customer> temp=customerRepository.findById(customer.getCustomerId());
+		if(temp==null)
+			throw new CustomersEmptyException("Customer not present in database");		
+		Customer result = null;    
+		result.setCutomerName(customer.getCutomerName());
+		result.setCustomeraddress(customer.getCustomeraddress());
+		result.setCustomerAge(customer.getCustomerAge());
+		result.setCustomerSalary(customer.getCustomerSalary());
+		result.setCustomerContact(customer.getCustomerContact());
+		result.setCustomerGender(customer.getCustomerGender());
+		result.setCustomerFamilyMembers(customer.getCustomerFamilyMembers());
+		result.setEmail(customer.getEmail());
+		result.setPassword(customer.getPassword());
+		return customerRepository.save(result);
 	}
 
 	@Override
@@ -111,12 +113,12 @@ public class CustomerServiceImpl implements CustomerService {
 	   if(customerId<0 || insuranceId<0) {	    		
 	    		throw new EnterValidDetailsException("Either customerId Or insuranceId Is Invalid Please Enter Correct ");
 	    	}
-	   else if(!insuranceService.findInsuranceByID(insuranceId).isPresent() || !(findCustomerByID(customerId)!=null)) {
+	   else if(!(insuranceService.findInsuranceByID(insuranceId)!=null) || !(findCustomerByID(customerId)!=null)) {
 		   throw new InsuranceEmptyException("Either InsuranceId "+insuranceId+" Or customerId "+customerId+" Not present in database please Enter Correct Id");		   
 	   }
 	   else {
 	    	customer = findCustomerByID(customerId);
-	        Insurance insurance = insuranceService.findInsuranceByID(insuranceId).get();
+	        Insurance insurance = insuranceService.findInsuranceByID(insuranceId);
 	        customer.getInsurances().add(insurance);
 	        customerRepository.save(customer);
 	     }
@@ -145,6 +147,7 @@ public class CustomerServiceImpl implements CustomerService {
 		Optional<Customer> result=customerRepository.findById(customerId);
 		if(result==null)
 			throw new CustomersEmptyException("Customer not present in database");
+		
 	    customerRepository.deleteById(customerId);
 	    return "Deleted Successfully";
 	}

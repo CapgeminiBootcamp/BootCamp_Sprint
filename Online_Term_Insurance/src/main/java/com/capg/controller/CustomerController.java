@@ -1,11 +1,13 @@
 package com.capg.controller;
 
 import java.util.List;
+
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,15 +22,13 @@ import com.capg.entity.EditCustomer;
 import com.capg.entity.Insurance;
 import com.capg.entity.TermInsuranceCalculator;
 import com.capg.entity.UserLogin;
-import com.capg.exception.CustomerAlreadyPresentException;
-import com.capg.exception.CustomersEmptyException;
-import com.capg.exception.EmailOrPasswordException;
-import com.capg.exception.EmptyFieldException;
-import com.capg.exception.EnterValidDetailsException;
+
 import com.capg.service.CustomerService;
 import com.capg.service.InsuranceService;
+@CrossOrigin(origins="http://localhost:3000")
 @RestController
-@RequestMapping("api/v1/")
+@RequestMapping("/api/v1")
+
 public class CustomerController {	
 	@Autowired
 	CustomerService customerService;
@@ -49,11 +49,11 @@ public class CustomerController {
 		return new ResponseEntity<Customer>(customerService.findByEmailAndPassword(userLogin.getEmail(),userLogin.getPassword()), HttpStatus.CREATED);
 	}
 	
-	@PutMapping("/customer")
-	public ResponseEntity<Customer> editCustomer(@RequestBody EditCustomer customer) {
+	@PutMapping("/customer")	
+	public ResponseEntity<Customer> editCustomer(@RequestBody Customer customer) {
 		return new ResponseEntity<Customer>(customerService.editCustomer(customer), HttpStatus.CREATED);
 	}
-	
+	   
 	
 	@PutMapping("/{customerId}/puchaseInsurance/{insuranceId}")
     private ResponseEntity<Customer> assignInsuranceToCustomer(@PathVariable int customerId, @PathVariable int insuranceId) { 	
