@@ -65,7 +65,7 @@ public class CustomerServiceImpl implements CustomerService {
 		Optional<Customer> temp=customerRepository.findById(customer.getCustomerId());
 		if(temp==null)
 			throw new CustomersEmptyException("Customer not present in database");		
-		Customer result = null;    
+		Customer result = temp.get();    
 		result.setCutomerName(customer.getCutomerName());
 		result.setCustomeraddress(customer.getCustomeraddress());
 		result.setCustomerAge(customer.getCustomerAge());
