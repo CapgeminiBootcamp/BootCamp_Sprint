@@ -118,7 +118,7 @@ public class CustomerServiceImpl implements CustomerService {
 	   }
 	   else {
 	    	customer = findCustomerByID(customerId);
-	        Insurance insurance = insuranceService.findInsuranceByID(insuranceId);
+	        Insurance insurance = insuranceService.findInsuranceByID(insuranceId).get();
 	        customer.getInsurances().add(insurance);
 	        customerRepository.save(customer);
 	     }

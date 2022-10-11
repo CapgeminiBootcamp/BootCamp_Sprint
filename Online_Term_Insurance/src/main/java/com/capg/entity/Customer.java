@@ -19,7 +19,7 @@ import lombok.Data;
 public class Customer {
 	
 	@Id
-//	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int customerId;
 	private String cutomerName;
 	private String customeraddress;
